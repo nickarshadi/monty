@@ -3,8 +3,7 @@
 int main(int argc, char **argv)
 {
 	FILE *fp;
-	//char buf[1024 * 0xa];
-	ssize_t read;//, bytes = 0;
+	ssize_t read;
 	char *line = NULL;
 	size_t len = 0;
 
@@ -23,8 +22,7 @@ int main(int argc, char **argv)
 	{
 		printf("%s\n", line);
 	}
-		free(line);
+	free(line);
 
-	//bytes = write(STDOUT_FILENO, &buf[0], bytes);
 	return (1);
 }
