@@ -2,7 +2,7 @@
 
 /**
   * open_and_read - open fd and read
-  * @f: FILE file
+  * @arg: FILE file
   * Return: VOID
   */
 void open_and_read(char *arg)
@@ -45,15 +45,21 @@ void open_and_read(char *arg)
 	}
 }
 
+/**
+  * getandexecvop - get operator and execute
+  * @stack: head of stack
+  * @op: operator
+  * @ln: line number
+  *{"pint", pint},
+  *{"pop", pop},
+  *{"swap", swap},
+  *{"nop", nop},
+  */
 void getandexecvop(stack_t **stack, char *op, int ln)
 {
 	int i = 0;
 	instruction_t getop[] = {
 		{"pall", pall},
-		/*{"pint", pint},
-		{"pop", pop},
-		{"swap", swap},
-		{"nop", nop},*/
 		{NULL, NULL}
 	};
 

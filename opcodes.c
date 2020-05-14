@@ -1,7 +1,7 @@
 #include "monty.h"
 
 /**
-  * push: push data to stack
+  * push - push data to stack
   * @head: head of linked list stack
   * @n: value
   * Return: head
@@ -16,7 +16,7 @@ stack_t *push(stack_t **head, int n)
 	new->n = n;
 	new->next = NULL;
 	if (*head == NULL)
-		new->prev = NULL;	
+		new->prev = NULL;
 	else
 	{
 		new->prev = *head;
@@ -26,14 +26,19 @@ stack_t *push(stack_t **head, int n)
 	return (*head);
 }
 
+/**
+  * pall - print stack in stack order
+  * @stack: head of stack
+  * @ln: line number
+  */
 void pall(stack_t **stack, unsigned int ln)
 {
 	stack_t *node = *stack;
 
 	while (node)
 	{
-		printf("%d\n",node->n);
+		printf("%d\n", node->n);
 		node = node->prev;
 	}
-	(void)ln;	
+	(void)ln;
 }

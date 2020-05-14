@@ -62,13 +62,17 @@ void sanitize(void)
 	free_stack(gdata.stack);
 }
 
+/**
+  * free_stack - free stack from heap
+  * @head: head of stack
+  */
 void free_stack(stack_t *head)
 {
 	stack_t *node;
 
 	while (head != NULL)
 	{
-		node = head->next;
+		node = head->prev;
 		free(head);
 		head = node;
 	}
