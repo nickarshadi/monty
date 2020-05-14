@@ -31,7 +31,7 @@ void open_and_read(char *arg)
 			if (val != NULL)/*/if isnumber*/
 			{
 				value = atoi(val);
-				//push_stack(&gdata.stack, value);
+				push(&gdata.stack, value);
 				/*printf("%d, ", value);*/
 			}
 			else
@@ -39,11 +39,9 @@ void open_and_read(char *arg)
 		}
 		else
 		{
-			(void)value;
 			getandexecvop(&gdata.stack, op, ln);
 		}
 		ln++;
-		/*printf("%s\n", op);*/
 	}
 }
 
@@ -51,8 +49,8 @@ void getandexecvop(stack_t **stack, char *op, int ln)
 {
 	int i = 0;
 	instruction_t getop[] = {
-	/*	{"pall", pall},
-		{"pint", pint},
+		{"pall", pall},
+		/*{"pint", pint},
 		{"pop", pop},
 		{"swap", swap},
 		{"nop", nop},*/
