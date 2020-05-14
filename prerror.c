@@ -1,24 +1,24 @@
 #include "monty.h"
 
 /**
-  * prerror - procces error
-  * @op: operator
-  * @number: index of error
-  * @ln: index of executed line
-  * Return: VOID
-  */
+* prerror - procces error
+* @op: operator
+* @number: index of error
+* @ln: index of executed line
+* Return: VOID
+*/
 void prerror(char *op, int number, int ln)
 {
-	if (number == -95)
-	{
-		dprintf(STDERR_FILENO, "L%u: can't %s an empty stack\n", ln, op);
-		sanitize();
-		exit(EXIT_FAILURE);
-	}
-	if (number == -96)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", op);
-		exit(EXIT_FAILURE);
+if (number == -95)
+{
+	dprintf(STDERR_FILENO, "L%u: can't %s an empty stack\n", ln, op);
+	sanitize();
+	exit(EXIT_FAILURE);
+}
+if (number == -96)
+{
+	dprintf(STDERR_FILENO, "Error: Can't open file %s\n", op);
+	exit(EXIT_FAILURE);
 	}
 	if (number == -97)
 	{
@@ -40,7 +40,8 @@ void prerror(char *op, int number, int ln)
 		"L%u: division by zero\n", ln), sanitize(), exit(EXIT_FAILURE);
 	if (number == -127)
 		dprintf(STDERR_FILENO,
-		"L%u: can't %s, value out of range\n", ln, op), sanitize(), exit(EXIT_FAILURE);
+		"L%u: can't %s, value out of range\n",
+		ln, op), sanitize(), exit(EXIT_FAILURE);
 	if (number == -128)
 		dprintf(STDERR_FILENO,
 		"L%d: unknown instruction %s\n", ln, op), sanitize(), exit(EXIT_FAILURE);
@@ -51,10 +52,12 @@ void prerror(char *op, int number, int ln)
 		exit(EXIT_FAILURE);
 	}
 }
-
+/**
+  * sanitize - free heap and close file descriptor
+  */
 void sanitize(void)
 {
 	fclose(gdata.file);
 	free(gdata.line);
-	//freestack(gdata.stack);
+	/*freestack(gdata.stack);*/
 }

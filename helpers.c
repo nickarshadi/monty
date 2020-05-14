@@ -15,8 +15,7 @@ void open_and_read(char *arg)
 
 	gdata.file = fopen(arg, "r");
 	if (gdata.file == NULL)
-		return;
-		//prerror(arg, -96, ln);
+		prerror(arg, -96, ln);
 	while ((read = getline(&gdata.line, &l, gdata.file)) != -1)
 	{
 		op = strtok(gdata.line, " ");
@@ -29,15 +28,14 @@ void open_and_read(char *arg)
 		op = strtok(op, " \n");
 		if (strcmp(op, "push") == 0)
 		{
-			if (val != NULL)//if isnumber
+			if (val != NULL)/*/if isnumber*/
 			{
 				value = atoi(val);
 				//push_stack(&gdata.stack, value);
-				printf("\n%d\n, ", value);
+				printf("%d, ", value);
 			}
 			else
-				(void)value;
-				//prerror(opcode, -129, ln);
+				prerror(op, -129, ln);
 		}
 		else
 		{
@@ -45,6 +43,6 @@ void open_and_read(char *arg)
 			//execvop(&gdata.stack, op, ln);
 		}
 		ln++;
-		printf("%s\nline = %d\n",op, ln);
+		printf("%s\n",op);
 	}
 }

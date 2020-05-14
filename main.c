@@ -12,17 +12,15 @@ int main(int argc, char **argv)
 	gdata.file = NULL;
 	gdata.line = NULL;
 	gdata.stack = NULL;
-	
+
 	if (argc != 2)
 	{
 		dprintf(STDERR_FILENO, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	open_and_read(argv[1]);
-	//fclose(gdata.file);
-	//free(gdata.line);
-	//freestack(gdata.stack);
-	
+	sanitize();
+
 	return (EXIT_SUCCESS);
 	(void)(argv);
 	(void)gdata.file;
