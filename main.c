@@ -1,41 +1,31 @@
 #include "monty.h"
+gdata_t gdata;
 
 /**
-  * main - run monty bytecode
-  * @argc: number of arguments
-  * @argv: Array of argument strings
-  * Return: 1
+  * main - entry point
+  * @argc: amount of arguments
+  * @argv: Array of arguments strings
+  * Return: Exit_Success
   */
 int main(int argc, char **argv)
 {
-	FILE *fp;
-	ssize_t read;
-	char *line = NULL;
-	size_t len = 0;
-	int i;
-
-	if (!argv[1] || argc != 2)
+	gdata.file = NULL;
+	gdata.line = NULL;
+	gdata.stack = NULL;
+	
+	if (argc != 2)
 	{
-		fprintf(stderr, "USAGE: monty file\n");
+		dprintf(STDERR_FILENO, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	fp = fopen(argv[1], "r");
-	if (fp == NULL)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
-	}
-	stack_t *head = NULL;
-	while ((read = getline(&line, &len, fp)) != -1)
-	{
-		i++;
-		if (pl(line, i, head) == -1)
-		{
-			fprintf(stderr, "L%d: unknown instruction <opcode>",i);
-			exit(EXIT_FAILURE);
-		}
-	}
-	free(line);
-
-	return (1);
+	open_and_read(argv[1]);
+	//fclose(gdata.file);
+	//free(gdata.line);
+	//freestack(gdata.stack);
+	
+	return (EXIT_SUCCESS);
+	(void)(argv);
+	(void)gdata.file;
+	(void)gdata.line;
+	(void)gdata.stack;
 }

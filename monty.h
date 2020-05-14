@@ -41,8 +41,18 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-int pl(char *line, int i, stack_t *head);
-void (*getop(char *op))(stack_t *head, int v);
-void (*push)(stack_t **stack, unsigned int line_number);
+typedef struct gdata_s
+{
+	FILE *file;
+	char *line;
+	stack_t *stack;
+} gdata_t;
+
+extern gdata_t gdata;
+
+
+void open_and_read(char *arg);
+void sanitize(void);
+void prerror(char *op, int number, int ln);
 
 #endif
