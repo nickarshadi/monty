@@ -40,9 +40,30 @@ void open_and_read(char *arg)
 		else
 		{
 			(void)value;
-			//execvop(&gdata.stack, op, ln);
+			getandexecvop(&gdata.stack, op, ln);
 		}
 		ln++;
 		printf("%s\n",op);
 	}
+}
+
+void getandexecvop(stack_t **stack, char *op, int ln)
+{
+	int i = 0;
+	instruction_t getop[] = {
+	/*	{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
+		{"swap", swap},
+		{"nop", nop},*/
+		{NULL, NULL}
+	};
+
+	for (i = 0; getop[i].opcode; i++)
+		if (strcmp(op, getop[i].opcode) == 0)
+		{
+			getop[i].f(stack, ln);
+			return;
+		}
+	prerror(op, -128, ln);
 }

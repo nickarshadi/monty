@@ -54,5 +54,6 @@ extern gdata_t gdata;
 void open_and_read(char *arg);
 void sanitize(void);
 void prerror(char *op, int number, int ln);
+void getandexecvop(stack_t **stack,char *op, int ln);
 
 #endif
