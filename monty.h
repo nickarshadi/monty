@@ -41,4 +41,8 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+int pl(char *line, int i, stack_t *head);
+void (*getop(char *op))(stack_t *head, int v);
+void (*push)(stack_t **stack, unsigned int line_number);
+
 #endif

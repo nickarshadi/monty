@@ -25,10 +25,15 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
+	stack_t *head = NULL;
 	while ((read = getline(&line, &len, fp)) != -1)
 	{
 		i++;
-		printf("%s", line);
+		if (pl(line, i, head) == -1)
+		{
+			fprintf(stderr, "L%d: unknown instruction <opcode>",i);
+			exit(EXIT_FAILURE);
+		}
 	}
 	free(line);
 
