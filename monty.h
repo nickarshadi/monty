@@ -58,5 +58,6 @@ void getandexecvop(stack_t **stack,char *op, int ln);
 void free_stack(stack_t *head);
 stack_t *push(stack_t **head, int n);
 void pall(stack_t **stack, unsigned int ln);
+void pint(stack_t **stack, unsigned int ln);
 
 #endif

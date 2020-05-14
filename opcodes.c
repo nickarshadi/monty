@@ -42,3 +42,16 @@ void pall(stack_t **stack, unsigned int ln)
 	}
 	(void)ln;
 }
+
+/**
+  * pint - print head of stack
+  * @stack: head of stacl linked list
+  * @ln: line number
+  */
+void pint(stack_t **stack, unsigned int ln)
+{
+	if (*stack)
+		printf("%d\n", (*stack)->n);
+	else
+		prerror("pint", -98, ln);
+}

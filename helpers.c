@@ -60,6 +60,7 @@ void getandexecvop(stack_t **stack, char *op, int ln)
 	int i = 0;
 	instruction_t getop[] = {
 		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
 
