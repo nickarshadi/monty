@@ -59,5 +59,17 @@ void sanitize(void)
 {
 	fclose(gdata.file);
 	free(gdata.line);
-	/*freestack(gdata.stack);*/
+	free_stack(gdata.stack);
+}
+
+void free_stack(stack_t *head)
+{
+	stack_t *node;
+
+	while (head != NULL)
+	{
+		node = head->next;
+		free(head);
+		head = node;
+	}
 }

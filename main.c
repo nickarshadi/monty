@@ -22,8 +22,4 @@ int main(int argc, char **argv)
 	sanitize();
 
 	return (EXIT_SUCCESS);
-	(void)(argv);
-	(void)gdata.file;
-	(void)gdata.line;
-	(void)gdata.stack;
 }

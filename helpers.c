@@ -32,7 +32,7 @@ void open_and_read(char *arg)
 			{
 				value = atoi(val);
 				//push_stack(&gdata.stack, value);
-				printf("%d, ", value);
+				/*printf("%d, ", value);*/
 			}
 			else
 				prerror(op, -129, ln);
@@ -43,7 +43,7 @@ void open_and_read(char *arg)
 			getandexecvop(&gdata.stack, op, ln);
 		}
 		ln++;
-		printf("%s\n",op);
+		/*printf("%s\n", op);*/
 	}
 }
 
