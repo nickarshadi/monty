@@ -1,6 +1,6 @@
 #include "monty.h"
 /**
- * free_list - free_list
+ * free_code - free_list
  */
 void free_code(void)
 {
@@ -25,7 +25,7 @@ void init_vars(void)
 	gdata.line = NULL;
 }
 /**
- * free_prog - free_prog
+ * free_all - free_prog
  */
 void free_all(void)
 {
