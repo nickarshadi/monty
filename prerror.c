@@ -1,95 +1,51 @@
 #include "monty.h"
-
 /**
-* prerror - procces error
-* @op: operator
-* @number: index of error
-* @ln: index of executed line
-* Return: VOID
-*/
-void prerror(char *op, int number, int ln)
+ * error_handler - this function executes the div opcode
+ * @op: opcode generates error
+ * @errorcode: the number of the error
+ * @ln: number of line that is executed
+ * Return: void function
+ */
+void error_handler(char *op, int errorcode, int ln)
 {
-if (number == -95)
-{
-	dprintf(STDERR_FILENO, "L%u: can't %s an empty stack\n", ln, op);
-	sanitize();
-	exit(EXIT_FAILURE);
-}
-if (number == -96)
-{
-	dprintf(STDERR_FILENO, "Error: Can't open file %s\n", op);
-	exit(EXIT_FAILURE);
+	if (errorcode == -95)
+	{dprintf(STDERR_FILENO, "L%u: can't %s an empty stack\n", ln, op);
+		clean();
+		exit(EXIT_FAILURE);
 	}
-	if (number == -97)
+	if (errorcode == -96)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't open file %s\n", op);
+		exit(EXIT_FAILURE);
+	}
+	if (errorcode == -97)
 	{
 		dprintf(STDERR_FILENO, "Error: %s failed\n", op);
-		sanitize();
+		clean();
 		exit(EXIT_FAILURE);
 	}
-	if (number == -98)
+	if (errorcode == -98)
 	{
 		dprintf(STDERR_FILENO, "L%u: can't %s, stack empty\n", ln, op);
-		sanitize();
+		clean();
 		exit(EXIT_FAILURE);
 	}
-}
-/**
-* prerror2 - procces error
-* @op: operator
-* @number: index of error
-* @ln: index of executed line
-* Return: VOID
-*/
-
-void prerror2(char *op, int number, int ln)
-{
-
-	if (number == -99)
+	if (errorcode == -99)
 		dprintf(STDERR_FILENO,
-		"L%u: can't %s, stack too short\n", ln, op), sanitize(), exit(EXIT_FAILURE);
-	if (number == -126)
+		"L%u: can't %s, stack too short\n", ln, op), clean(), exit(EXIT_FAILURE);
+	if (errorcode == -126)
 		dprintf(STDERR_FILENO,
-		"L%u: division by zero\n", ln), sanitize(), exit(EXIT_FAILURE);
-	if (number == -127)
+		"L%u: division by zero\n", ln), clean(), exit(EXIT_FAILURE);
+	if (errorcode == -127)
 		dprintf(STDERR_FILENO,
-		"L%u: can't %s, value out of range\n",
-		ln, op), sanitize(), exit(EXIT_FAILURE);
-	if (number == -128)
+		"L%u: can't %s, value out of range\n", ln, op), clean(), exit(EXIT_FAILURE);
+	if (errorcode == -128)
 		dprintf(STDERR_FILENO,
-		"L%d: unknown instruction %s\n", ln, op), sanitize(), exit(EXIT_FAILURE);
-	if (number == -129)
+		"L%d: unknown instruction %s\n", ln, op), clean(), exit(EXIT_FAILURE);
+	if (errorcode == -129)
 	{
 		dprintf(STDERR_FILENO, "L%d: usage: push integer\n", ln);
-		sanitize();
+		clean();
 		exit(EXIT_FAILURE);
-	}
-}
-
-
-
-
-/**
-  * sanitize - free heap and close file descriptor
-  */
-void sanitize(void)
-{
-	fclose(gdata.file);
-	free(gdata.line);
-	free_stack(gdata.stack);
-}
-
-/**
-  * free_stack - free stack from heap
-  * @head: head of stack
-  */
-void free_stack(stack_t *head)
-{
-	stack_t *node;
-
-	while (head != NULL)
-	{
-		node = head->prev;
-		free(head);
-		head = node;
 	}
 }

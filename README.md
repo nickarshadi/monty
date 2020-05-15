@@ -1,66 +1,87 @@
-monty - Stacks, Queues - LIFO, FIFO pancakes
-monty functions as a Monty byte code interpreter. Monty 0.98 is a scripting language that is first compiled into Monty byte codes (Just like Python). It relies on a unique stack, with specific instructions to manipulate it.
-SYNOPSIS
-monty is a simple byte code interpreter in accordance with Holberton School standards and expectations. This project's purpose was to introduce students to working with the stack which is LIFO (last in first out) and the queue, which is FIFO (first in first out).
-INSTALLATION AND USAGE
-Please use GCC 4.8.4 compiler or later.
+# Monty
 
-$ git clone [repository link]
+Monty 0.98 is a scripting language that is first compiled into Monty byte codes (Just like Python). It relies on a unique stack, with specific instructions to manipulate it. The goal of this project is to create an interpreter for Monty ByteCodes files.
+
+This project was built by Hugo Bayona and Alejo López
+
+# Table of Contents
+1. [Authors](#Authors)
+2. [Features](#Features)
+3. [How Use](#How-Use)
+3. [Brainfuck](#Brainfuck)
+
+# Authors
+ 👤 **Hugo Bayona**
+
+- Twitter: [@batmanesfriki](https://twitter.com/batmanesfriki)
+- Github: [@hb4y](https://github.com/hb4y)
+
+👤 **Alejo López**
+
+- Twitter: [@alejolo311](https://twitter.com/Alejolo311)
+- Github: [@alejolo311](https://github.com/alejolo311)
+
+# Features
+
+The following opcodes are suported.
+
+- (push)  Push an integer to the stack.
+- (pall)  Prints the entire stack.
+- (pint)  Print the first element of the stack.
+- (pop)   Removes the top element of the stack.
+- (swap)  Swaps the top two elements of the stack.
+- (add,   sub, mul, div, mod) Aritmetic op +, -, *, /, %.
+- (nop)
+- (pchar) Prints the char at the top of the stack, followed by a new line.
+- (pstr)  Prints the string starting at the top of the stack, followed by a new line.
+- (rotl)  Rotates the stack to the top.
+- (rotr)  Rotates the stack to the bottom.
+- (stack) Sets the format of the data to a stack (LIFO). DEFAULT.
+- (queue) Sets the format of the data to a queue (FIFO).
+
+# How Use
+
+## How to compile
+
 $ gcc -Wall -Werror -Wextra -pedantic *.c -o monty
-$ ./monty file_name.m
 
-SYNTAX OVERVIEW AND EXAMPLES
-Below are some examples of using monty with bytecode files:
+### Requirements
 
-vagrant@vagrant-ubuntu-trusty-64:/0x19-stacks_queues_lifo_fifo$ cat -e bytecodes/00.m
+ - compile on Ubuntu 14.04 LTS
+ - compile with gcc 4.8.4
+
+### Examples
+```bash
+$ cat -e bytecodes/00.m
 push 1$
 push 2$
 push 3$
 pall$
-vagrant@vagrant-ubuntu-trusty-64:/0x19-stacks_queues_lifo_fifo$ ./monty bytecodes/00.m
+$ ./monty bytecodes/00.m
 3
 2
 1
-vagrant@vagrant-ubuntu-trusty-64:/0x19-stacks_queues_lifo_fifo$
-vagrant@vagrant-ubuntu-trusty-64:/0x19-stacks_queues_lifo_fifo$ cat bytecodes/09.m
-push 1
-push 2
-push 3
-pall
-swap
-pall
-vagrant@vagrant-ubuntu-trusty-64:/0x19-stacks_queues_lifo_fifo$ ./monty bytecodes/09.m
-3
-2
-1
-2
-3
-1
-vagrant@vagrant-ubuntu-trusty-64:/0x19-stacks_queues_lifo_fifo$
+$
+```
+# Brainfuck
 
-opcodes
-Listed below are the opcodes to can be used in monty:
+Brainfuck is an esoteric programming language created in 1993 by Urban Müller, and is notable for its extreme minimalism.
 
-opcode Function
-push Pushes an element to the stack pall Prints all the values on the stack, starting from the top of the stack pint prints the value at the top of the stack, followed by a new line pop Removes the top element of the stack swap Swaps the top two elements of the stack add Adds the top two elements of the stack nop Doesn’t do anything File Descriptions Listed below are the descriptions of the files in this repo:
+This repository includes 4 files with Brainfuck implementations.
 
-File Description
-helperfuncs.c Includes functions for string manipulation. main.c Contains parser and main monty interpreter. free_list.c Contains function to print doubly linked list monty.c Contains functions for opcodes monty1.c Contains functions for opcodes monty.h Contains function prototypes and data structures.
-Data Structures and Functions Used
-typedef struct stack_s
+- A Brainf*ck script that prints Holberton, followed by a new line.
+- Add two digits given by the user.
+- Multiply two digits given by the user.
+- Multiply two digits given by the user + print a new line at the end.
 
-{ int n; struct stack_s *prev; struct stack_s *next; } stack_t;
+## How to compile
 
-typedef struct instruction_s
+$ bf ./1001-add.bf
 
-{ char *opcode; void (*f)(stack_t **stack, unsigned int line_number); } instruction_t;
+### Requirements
 
-void add(stack_t **stack, unsigned int line_num); void swap(stack_t **stack, unsigned int line_num); void pop(stack_t **stack, unsigned int line_num); stack_t *push(stack_t **stack, unsigned int line_num, int n); void pall(stack_t **stack, unsigned int line_num); stack_t *push(stack_t **stack, unsigned int line_num, int n); void swap(stack_t **stack, unsigned int line_num); void free_dlistint(dlistint_t *head); int _strcmp(char *s1, char *s2);
-
-Christian Nazareno
-
-| twitter | linkedin | mail | github |
-Nick Arshadi
-
-| twitter | linkedin | github |
-
+ - compile on Ubuntu 14.04 LTS
+ - compile with bf
+ ```bash
+ $ apt-get install bf 
+ ```

@@ -1,38 +1,38 @@
 #include "monty.h"
 /**
- * free_code - free_list
+ * exec_pchar - this function executes the pchar opcode
+ * @stack: the stack to read the numbers
+ * @line_number: number of line that is executed
+ * Return: void function
  */
-void free_code(void)
+void exec_pchar(stack_t **stack, unsigned int line_number)
 {
-	stack_t *p, *store;
+	stack_t *actual = *stack;
 
-	p = gdata.stack;
-
-	while (p != NULL)
+	actual == NULL ? error_handler("pchar", -98, line_number) : (void) actual;
+	actual->n < 0 || actual->n > 127 ?
+	error_handler("pchar", -127, line_number) : (void)actual;
+	putchar(actual->n);
+	putchar('\n');
+}
+/**
+ * exec_pstr - this function executes the pstr opcode
+ * @stack: the stack to read the numbers
+ * @line_number: number of line that is executed
+ * Return: void function
+ */
+void exec_pstr(stack_t **stack, unsigned int line_number)
+{
+	stack_t *actual = *stack;
+	(void) line_number;
+	while (actual)
 	{
-		store = p->next;
-		free(p);
-		p = store;
+		if ((actual->n > 0) && actual->n < 127)
+		{
+			putchar(actual->n);
+			actual = actual->next;
+		} else
+			break;
 	}
-}
-/**
- * init_vars - init_vars
- */
-void init_vars(void)
-{
-	gdata.stack = NULL;
-	gdata.file = NULL;
-	gdata.line = NULL;
-}
-/**
- * free_all - free_prog
- */
-void free_all(void)
-{
-	if (gdata.file  != NULL)
-		fclose(gdata.file);
-	if (gdata.line  != NULL)
-		free(gdata.line);
-	if (gdata.stack != NULL)
-		free_code();
+	putchar('\n');
 }
