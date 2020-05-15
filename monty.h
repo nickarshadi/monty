@@ -59,5 +59,12 @@ void free_stack(stack_t *head);
 stack_t *push(stack_t **head, int n);
 void pall(stack_t **stack, unsigned int ln);
 void pint(stack_t **stack, unsigned int ln);
+void add(stack_t **stack, unsigned int ln);
+void pchar(stack_t **stack, unsigned int ln);
+void pop(stack_t **stack, unsigned int line_number);
+int _isdigit(char *number);
 
+void free_code(void);
+void init_vars(void);
+void free_all(void);
 #endif
