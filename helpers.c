@@ -83,8 +83,6 @@ void exec_monty(stack_t **stack, char *opcode, int ln)
 		{"mul", exec_mul},
 		{"div", exec_div},
 		{"mod", exec_mod},
-		{"rotl", exec_rotl},
-		{"rotr", exec_rotr},
 		{"stack", exec_stack},
 		{"queue", exec_queue},
 		{NULL, NULL}
