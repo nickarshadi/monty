@@ -48,7 +48,7 @@ typedef struct gdata_s
 	stack_t *stack;
 } gdata_t;
 
-gdata_t gdata;
+extern gdata_t gdata;
 
 
 void open_and_read(char *arg);
