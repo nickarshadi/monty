@@ -1,5 +1,4 @@
 #include "monty.h"
-gdata_t gdata;
 
 /**
   * main - entry point
