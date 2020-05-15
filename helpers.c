@@ -55,7 +55,7 @@ void open_and_read(char *f)
 				error_handler(opcode, -129, ln);
 		} else
 		{
-			exec_monty(&settings.stack, opcode, ln);
+			getandexecve(&settings.stack, opcode, ln);
 		}
 		ln++;
 	}
@@ -66,7 +66,7 @@ void open_and_read(char *f)
  * @opcode: opcode instruction
  * @ln: number of line
  */
-void exec_monty(stack_t **stack, char *opcode, int ln)
+void getandexecve(stack_t **stack, char *opcode, int ln)
 {
 	int i;
 	char *op;
