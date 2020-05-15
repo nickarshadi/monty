@@ -1,85 +1,113 @@
+
 #include "monty.h"
-/**
- * exec_div - this function executes the div opcode
- * @stack: the stack to read the numbers
- * @line_number: number of line that is executed
- * Return: void function
- */
-void exec_div(stack_t **stack, unsigned int line_number)
-{
-	stack_t *actual = *stack, *next;
 
-	if (actual == NULL || actual->next == NULL)
-		error_handler("div", -99, line_number);
-	if (actual->n == 0)
-		error_handler("div", -126, line_number);
-	next = actual->next;
-	next->n =  next->n / actual->n;
-	exec_pop(stack, line_number);
+/**
+ * sub - The opcode sub subtracts the top element of the stack from
+ * the second top element of the stack.
+ * @stack:pointer to top of stack
+ * @ln: line number
+ */
+void sub(stack_t **stack, unsigned int ln)
+{
+	stack_t *tmp = NULL;
+	int sub;
+
+	if (stack == NULL || *stack == NULL || (*stack)->prev == NULL)
+	{
+		fprintf(stderr, "L%d: can't sub, stack too short\n", ln);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	tmp = (*stack)->prev;
+	sub = tmp->n - tmp->next->n;
+	tmp->n = sub;
+	free(tmp->next);
+	*stack = tmp;
+	tmp->next = NULL;
 }
 /**
- * exec_mod - this function executes the mod opcode
- * @stack: the stack to read the numbers
- * @line_number: number of line that is executed
- * Return: void function
+ * _div - The opcode div divides the second top element of the
+ * stack by the top element of the stack.
+ * @stack:pointer to top of stack
+ * @ln: line number
  */
-void exec_mod(stack_t **stack, unsigned int line_number)
+void _div(stack_t **stack, unsigned int ln)
 {
-	stack_t *current = *stack, *next;
+	stack_t *tmp = NULL;
+	int div;
 
-	if (current == NULL || current->next == NULL)
-		error_handler("mod", -99, line_number);
-	if (current->n == 0)
-		error_handler("mod", -126, line_number);
-	next = current->next;
-	next->n =  next->n % current->n;
-	exec_pop(stack, line_number);
+	if (stack == NULL || *stack == NULL || (*stack)->prev == NULL)
+	{
+		fprintf(stderr, "L%d: can't div, stack too short\n", ln);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	tmp = (*stack)->prev;
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", ln);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+
+	div = tmp->n / tmp->prev->n;
+	tmp->n = div;
+	free(tmp->next);
+	*stack = tmp;
+	tmp->next = NULL;
 }
 /**
- * exec_add - this function executes the add opcode
- * @stack: the stack to read the numbers
- * @line_number: number of line that is executed
- * Return: void function
+ * _mul - The opcode mul multiplies the second top element of the
+ * stack with the top element of the stack.
+ * @stack:pointer to top of stack
+ * @ln: line number
  */
-void exec_add(stack_t **stack, unsigned int line_number)
+void _mul(stack_t **stack, unsigned int ln)
 {
-	stack_t *actual = *stack, *next;
+	stack_t *tmp = NULL;
+	int mul;
 
-	if (actual == NULL || actual->next == NULL)
-		error_handler("add", -99, line_number);
-	next = actual->next;
-	next->n =  next->n + actual->n;
-	exec_pop(stack, line_number);
+	if (stack == NULL || *stack == NULL || (*stack)->prev == NULL)
+	{
+		fprintf(stderr, "L%d: can't mul, stack too short\n", ln);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	tmp = (*stack)->prev;
+	mul = tmp->n * tmp->next->n;
+	tmp->n = mul;
+	free(tmp->next);
+	*stack = tmp;
+	tmp->next = NULL;
 }
 /**
- * exec_sub - this function executes the div opcode
- * @stack: the stack to read the numbers
- * @line_number: number of line that is executed
- * Return: void function
+ * _mod - The opcode mul multiplies the second top element of the
+ * stack with the top element of the stack.
+ * @stack:pointer to top of stack
+ * @ln: line number
  */
-void exec_sub(stack_t **stack, unsigned int line_number)
+void _mod(stack_t **stack, unsigned int ln)
 {
-	stack_t *actual = *stack, *next;
+	stack_t *tmp = NULL;
+	int mod;
 
-	if (actual == NULL || actual->next == NULL)
-		error_handler("sub", -99, line_number);
-	next = actual->next;
-	next->n =  next->n - actual->n;
-	exec_pop(stack, line_number);
+	if (stack == NULL || *stack == NULL || (*stack)->prev == NULL)
+	{
+		fprintf(stderr, "L%d: can't mod, stack too short\n", ln);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	tmp = (*stack)->prev;
+	if ((*stack)->n == 0)
+	{
+		fprintf(stderr, "L%d: division by zero\n", ln);
+		free_all();
+		exit(EXIT_FAILURE);
+	}
+	mod = tmp->n % tmp->next->n;
+	tmp->n = mod;
+	free(tmp->next);
+	*stack = tmp;
+	tmp->next = NULL;
 }
-/**
- * exec_mul - this function executes the div opcode
- * @stack: the stack to read the numbers
- * @line_number: number of line that is executed
- * Return: void function
- */
-void exec_mul(stack_t **stack, unsigned int line_number)
-{
-	stack_t *actual = *stack, *next;
 
-	if (actual == NULL || actual->next == NULL)
-		error_handler("mul", -99, line_number);
-	next = actual->next;
-	next->n =  next->n * actual->n;
-	exec_pop(stack, line_number);
-}

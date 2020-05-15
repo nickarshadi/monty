@@ -1,120 +1,74 @@
 #include "monty.h"
 
 /**
- * verify_args - verify the args
- * @argc: arguments
- * Return: 0 in succes -1 in fail
- */
-
-void verify_args(int argc)
-{
-	if (argc > 2 || argc < 2)
-	{
-		dprintf(STDERR_FILENO, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-/**
- * open_and_read - open the monty file and read his content
- * @f: the file to open
- * Return: Void no return
- */
-void open_and_read(char *f)
+  * open_and_read - open fd and read
+  * @arg: FILE file
+  * Return: VOID
+  */
+void open_and_read(char *arg)
 {
 	size_t l = 0;
-	ssize_t r;
+	ssize_t read;
 	unsigned int ln = 1;
 	int value;
-	char *op, *val, *opcode;
+	char *op, *val;
 
-	settings.file = fopen(f, "r");
-	if (settings.file == NULL)
-		error_handler(f, -96, ln);
-	while ((r = getline(&settings.line, &l, settings.file)) != -1)
+	gdata.file = fopen(arg, "r");
+	if (gdata.file == NULL)
+		prerror(arg, -96, ln);
+	while ((read = getline(&gdata.line, &l, gdata.file)) != -1)
 	{
-		op = strtok(settings.line, " ");
-		if (*op == '#' || *op == '\n')
+		op = strtok(gdata.line, " ");
+		if (*op == '\n')
 		{
-			ln++;
+			ln += 1;
 			continue;
 		}
 		val = strtok(NULL, " \n");
-		opcode = strtok(op, " \n");
-		if (strcmp(opcode, "push") == 0)
+		op = strtok(op, " \n");
+		if (strcmp(op, "push") == 0)
 		{
-			if (is_number(val) && val != NULL)
+			if (val != NULL)/*/if isnumber*/
 			{
 				value = atoi(val);
-				if (!settings.queue)
-					push_stack(&settings.stack, value);
-				else
-					push_queue(&settings.stack, value);
+				push(&gdata.stack, value);
+				/*printf("%d, ", value);*/
 			}
 			else
-				error_handler(opcode, -129, ln);
-		} else
+				prerror(op, -129, ln);
+		}
+		else
 		{
-			getandexecve(&settings.stack, opcode, ln);
+			getandexecvop(&gdata.stack, op, ln);
 		}
 		ln++;
 	}
 }
+
 /**
- * exec_monty - execute the opcode funcion
- * @stack: head of the stack
- * @opcode: opcode instruction
- * @ln: number of line
- */
-void getandexecve(stack_t **stack, char *opcode, int ln)
+  * getandexecvop - get operator and execute
+  * @stack: head of stack
+  * @op: operator
+  * @ln: line number
+  *{"pint", pint},
+  *{"pop", pop},
+  *{"swap", swap},
+  *{"nop", nop},
+  */
+void getandexecvop(stack_t **stack, char *op, int ln)
 {
-	int i;
-	char *op;
-	instruction_t instructions[] = {
-		{"pall", exec_pall},
-		{"pint", exec_pint},
-		{"pop", exec_pop},
-		{"swap", exec_swap},
-		{"nop", exec_nop},
-		{"pchar", exec_pchar},
-		{"pstr", exec_pstr},
-		{"add", exec_add},
-		{"sub", exec_sub},
-		{"mul", exec_mul},
-		{"div", exec_div},
-		{"mod", exec_mod},
-		{"stack", exec_stack},
-		{"queue", exec_queue},
+	int i = 0;
+	instruction_t getop[] = {
+		{"pall", pall},
+		{"pint", pint},
 		{NULL, NULL}
 	};
-	op = strtok(opcode, " \n");
-	for (i = 0; instructions[i].opcode; i++)
-		if (strcmp(op, instructions[i].opcode) == 0)
+
+	for (i = 0; getop[i].opcode; i++)
+		if (strcmp(op, getop[i].opcode) == 0)
 		{
-			instructions[i].f(stack, ln);
+			getop[i].f(stack, ln);
 			return;
 		}
-	error_handler(opcode, -128, ln);
+	prerror(op, -128, ln);
 }
-/**
- * set - set initial values
- * Return: void
- */
-void set(void)
-{
-	settings.file = NULL;
-	settings.line = NULL;
-	settings.stack = NULL;
-	settings.queue = false;
-}
-/**
- * clean - clean men
- * Return: void
- */
-void clean(void)
-{
-	fclose(settings.file);
-	free(settings.line);
-	fstack(settings.stack);
-}
-

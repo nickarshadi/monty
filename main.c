@@ -1,17 +1,27 @@
 #include "monty.h"
-settings_t settings;
+
+gdata_t gdata;
+
+
 /**
- * main - entry point
- * @argc: count of arguments
- * @argv: The arguments
- * Description: entry point for the program to exec monty code
- * Return: 0 on success
- */
+  * main - entry point
+  * @argc: amount of arguments
+  * @argv: Array of arguments strings
+  * Return: Exit_Success
+  */
 int main(int argc, char **argv)
 {
-	set();
-	verify_args(argc);
-	open_and_read(*(argv + 1));
-	clean();
+	gdata.file = NULL;
+	gdata.line = NULL;
+	gdata.stack = NULL;
+
+	if (argc != 2)
+	{
+		dprintf(STDERR_FILENO, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
+	}
+	open_and_read(argv[1]);
+	sanitize();
+
 	return (EXIT_SUCCESS);
 }
