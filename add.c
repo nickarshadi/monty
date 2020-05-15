@@ -13,6 +13,7 @@ void add(stack_t **stack, unsigned int ln)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", ln);
 		free_all();
+		exit(EXIT_FAILURE);
 	}
 	temp = (*stack)->prev;
 	add = temp->n + temp->next->n;
@@ -34,12 +35,14 @@ void pchar(stack_t **stack, unsigned int ln)
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", ln);
 		free_all();
+		exit(EXIT_FAILURE);
 	}
 	ch = (*stack)->n;
 	if (ch < 0 || ch > 127)
 	{
 		fprintf(stderr, "L%d: can't pchar, value out of range\n", ln);
 		free_all();
+		exit(EXIT_FAILURE);
 	}
 	putchar(ch);
 	putchar(10);
