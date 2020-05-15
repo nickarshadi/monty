@@ -8,6 +8,7 @@ void add(stack_t **stack, unsigned int ln)
 {
 	stack_t *temp = NULL;
 	int add;
+
 	if (stack == NULL || *stack == NULL || (*stack)->prev == NULL)
 	{
 		fprintf(stderr, "L%d: can't add, stack too short\n", ln);
@@ -28,6 +29,7 @@ void add(stack_t **stack, unsigned int ln)
 void pchar(stack_t **stack, unsigned int ln)
 {
 	int ch = 0;
+
 	if (stack == NULL || *stack == NULL)
 	{
 		fprintf(stderr, "L%d: can't pchar, stack empty\n", ln);
@@ -78,6 +80,7 @@ void pop(stack_t **stack, unsigned int line_number)
 int _isdigit(char *number)
 {
 	int i = 0;
+
 	if (number == NULL)
 		return (0);
 	if (number[0] == '-')
