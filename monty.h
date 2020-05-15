@@ -48,12 +48,13 @@ typedef struct gdata_s
 	stack_t *stack;
 } gdata_t;
 
-extern gdata_t gdata;
+gdata_t gdata;
 
 
 void open_and_read(char *arg);
 void sanitize(void);
 void prerror(char *op, int number, int ln);
+void prerror2(char *op, int number, int ln);
 void getandexecvop(stack_t **stack,char *op, int ln);
 void free_stack(stack_t *head);
 stack_t *push(stack_t **head, int n);

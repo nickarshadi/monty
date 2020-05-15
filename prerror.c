@@ -32,6 +32,18 @@ if (number == -96)
 		sanitize();
 		exit(EXIT_FAILURE);
 	}
+}
+/**
+* prerror2 - procces error
+* @op: operator
+* @number: index of error
+* @ln: index of executed line
+* Return: VOID
+*/
+
+void prerror2(char *op, int number, int ln)
+{
+
 	if (number == -99)
 		dprintf(STDERR_FILENO,
 		"L%u: can't %s, stack too short\n", ln, op), sanitize(), exit(EXIT_FAILURE);
@@ -52,6 +64,10 @@ if (number == -96)
 		exit(EXIT_FAILURE);
 	}
 }
+
+
+
+
 /**
   * sanitize - free heap and close file descriptor
   */

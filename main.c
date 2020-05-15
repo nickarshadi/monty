@@ -1,5 +1,5 @@
 #include "monty.h"
-gdata_t gdata;
+
 
 
 /**
