@@ -69,7 +69,7 @@ typedef struct instruction_s
  * @queue_mode: 1 if in queue mode else 0
  * Description: parameter pattern
  */
-typedef struct data
+typedef struct data_s
 {
 	FILE *fp;
 	stack_t *stack;
@@ -79,6 +79,8 @@ typedef struct data
 	char *line;
 	int queue_mode;
 } data_t;
+
+extern data_t data;
 
 #define INIT_DATA {NULL, NULL, 1, NULL, 0, NULL, 0}
 
@@ -94,7 +96,6 @@ int is_empty(stack_t **head);
 void pall(stack_t *head);
 
 /* data.c */
-data_t *data(void);
 void free_data(int all);
 
 /* token.c */

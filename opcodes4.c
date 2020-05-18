@@ -8,7 +8,7 @@
 void opcode_stack(__attribute__((unused))stack_t **stack,
 	__attribute__((unused))unsigned int line_number)
 {
-	data()->queue_mode = 0;
+	data.queue_mode = 0;
 }
 
 /**
@@ -19,5 +19,5 @@ void opcode_stack(__attribute__((unused))stack_t **stack,
 void opcode_queue(__attribute__((unused))stack_t **stack,
 	__attribute__((unused))unsigned int line_number)
 {
-	data()->queue_mode = 1;
+	data.queue_mode = 1;
 }

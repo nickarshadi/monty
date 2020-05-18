@@ -1,5 +1,6 @@
 #include "monty.h"
 
+data_t data;
 /**
  * main - Enrty point for program
  * @ac: argument count
@@ -8,16 +9,23 @@
  */
 int main(int ac, char **av)
 {
+	data.fp = NULL;
+	data.stack = NULL;
+	data.line_number = 0;
+	data.words = NULL;
+	data.num_words = 0;
+	data.line = NULL;
+	data.queue_mode = 0;
+
 	if (ac != 2)
 	{
 		dprintf(STDERR_FILENO, USAGE);
 		return (EXIT_FAILURE);
 	}
 
-	data()->fp = fopen(av[1], "r");
-	if (!data()->fp)
+	data.fp = fopen(av[1], "r");
+	if (!data.fp)
 	{
-
 		dprintf(STDERR_FILENO, ERR_FILE, av[1]);
 		free_data(1);
 		return (EXIT_FAILURE);
@@ -39,20 +47,20 @@ void parse_opcodes(void)
 
 	while (1)
 	{
-		rbytes = getline(&(data()->line), &n, data()->fp);
+		rbytes = getline(&(data.line), &n, data.fp);
 		if (rbytes == -1)
 			break;
 
-		data()->words = strtow(data()->line, " \t\n");
-		if (data()->words && data()->words[0] && data()->words[0][0] != '#')
+		data.words = strtow(data.line, " \t\n");
+		if (data.words && data.words[0] && data.words[0][0] != '#')
 		{
-			for (i = 0; data()->words[i]; i++)
+			for (i = 0; data.words[i]; i++)
 				;
-			data()->num_words = i;
-			exec_opcode(data()->words[0]);
+			data.num_words = i;
+			exec_opcode(data.words[0]);
 		}
 
-		data()->line_number++;
+		data.line_number++;
 		free_data(0);
 	}
 
@@ -93,11 +101,11 @@ int exec_opcode(char *word)
 	{
 		if (!strcmp(word, opcodes[i].opcode))
 		{
-			opcodes[i].f(&data()->stack, data()->line_number);
+			opcodes[i].f(&data.stack, data.line_number);
 			return (1);
 		}
 	}
-	dprintf(STDERR_FILENO, ERR_OPCODE, data()->line_number, word);
+	dprintf(STDERR_FILENO, ERR_OPCODE, data.line_number, word);
 	free_data(1);
 	exit(EXIT_FAILURE);
 	return (0);

@@ -8,15 +8,15 @@
 void opcode_push(stack_t **stack,
 __attribute__((unused))unsigned int line_number)
 {
-	if (data()->num_words < 2 || !is_num(data()->words[1]))
+	if (data.num_words < 2 || !is_num(data.words[1]))
 	{
-		dprintf(STDERR_FILENO, ERR_PUSH, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_PUSH, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 		return;
 	}
 
-	if (!push(stack, atoi(data()->words[1])))
+	if (!push(stack, atoi(data.words[1])))
 	{
 		dprintf(STDERR_FILENO, ERR_MALLOC);
 		free_data(1);
@@ -34,7 +34,7 @@ __attribute__((unused))unsigned int line_number)
 {
 	if (!get_dnodeint_at_index(*stack, 0))
 	{
-		dprintf(STDERR_FILENO, ERR_POP, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_POP, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}
@@ -51,7 +51,7 @@ __attribute__((unused))unsigned int line_number)
 {
 	if (!get_dnodeint_at_index(*stack, 0))
 	{
-		dprintf(STDERR_FILENO, ERR_PINT, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_PINT, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}
@@ -81,7 +81,7 @@ __attribute__((unused))unsigned int line_number)
 
 	if (!get_dnodeint_at_index(*stack, 1))
 	{
-		dprintf(STDERR_FILENO, ERR_SWAP, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_SWAP, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}

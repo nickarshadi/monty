@@ -13,7 +13,7 @@ void opcode_mod(__attribute__((unused))stack_t **stack,
 
 	if (!get_dnodeint_at_index(*stack, 1))
 	{
-		dprintf(STDERR_FILENO, ERR_MOD, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_MOD, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}
@@ -21,7 +21,7 @@ void opcode_mod(__attribute__((unused))stack_t **stack,
 	m = pop(stack);
 	if (!n)
 	{
-		dprintf(STDERR_FILENO, ERR_ZERO, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_ZERO, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}
@@ -40,14 +40,14 @@ void opcode_pchar(__attribute__((unused))stack_t **stack,
 
 	if (!get_dnodeint_at_index(*stack, 0))
 	{
-		dprintf(STDERR_FILENO, ERR_PCHAR, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_PCHAR, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}
 	n = peek(stack);
 	if (n < 0 || n > 127)
 	{
-		dprintf(STDERR_FILENO, ERR_NOCHAR, data()->line_number);
+		dprintf(STDERR_FILENO, ERR_NOCHAR, data.line_number);
 		free_data(1);
 		exit(EXIT_FAILURE);
 	}
