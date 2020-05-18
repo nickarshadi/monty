@@ -111,9 +111,8 @@ home$ ./montyfile opcodetestfile.m
 | data.c | Contains data struct singleton pattern, returns pointer to our struct and central controler to free all data |
 | dlist1.c | Handles data list functions length, sum, print and add node to end of list |
 | dlist2.c | Handles data list functions add node to head, insert, get, delete node at index and free the list |
-| interpreter.c | Starting point of program; counts arguments, calls strtok, parses opcode and executes if valid |
+| main.c | Starting point of program; counts arguments, calls strtok, parses opcode and executes if valid |
 | lists.h | Header file containing dlist prototypes, libraries and dlist struct definition |
-| main.c | Entry point of program, interprets return |
 | monty.h | Calls libraries, holds prototypes for all files except dlists, defines structs for parameter pattern, opcode functionality and doubly linked-list representation of stack. Contains all error code definitions |
 | opcodes1.c | Contains operation code functions for push, pop, pint, pall and swap |
 | opcodes2.c | Contains operation code functions for nop, add, sub, div and mul |
@@ -135,4 +134,4 @@ All files have been written in the Betty Style for a cohesive and readable forma
 
 ## Authors
 * **Nick Arshadi** - [nickarshadi](https://github.com/nickarshadi)
-* **Christian Nazarenno** - [ch-canaza](https://github.com/ch-canaza)
+* **Christian Nazareno** - [ch-canaza](https://github.com/ch-canaza)

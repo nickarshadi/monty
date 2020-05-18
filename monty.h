@@ -69,7 +69,7 @@ typedef struct instruction_s
  * @queue_mode: 1 if in queue mode else 0
  * Description: parameter pattern
  */
-typedef struct data_s
+typedef struct data
 {
 	FILE *fp;
 	stack_t *stack;
@@ -80,7 +80,55 @@ typedef struct data_s
 	int queue_mode;
 } data_t;
 
-extern data_t data;
+#define INIT_DATA {NULL, NULL, 1, NULL, 0, NULL, 0}
+
+#include "lists.h"
+
+/* interpreter.c */
+void parse_opcodes(void);
+int exec_opcode(char *word);
+
+/* stack.c */
+int push(stack_t **head, int n);
+int pop(stack_t **head);
+int peek(stack_t **head);
+int is_empty(stack_t **head);
+void pall(stack_t *head);
+
+/* data.c */
+data_t *data(void);
 void free_data(int all);
+
+/* token.c */
+char **strtow(char *str, char *d);
+int is_delim(char c, char *delim);
+void ffree(char **pp);
+int is_num(char *str);
+
+/* opcodes1.c */
+void opcode_push(stack_t **stack, unsigned int line_number);
+void opcode_pop(stack_t **stack, unsigned int line_number);
+void opcode_pint(stack_t **stack, unsigned int line_number);
+void opcode_pall(stack_t **stack, unsigned int line_number);
+void opcode_swap(stack_t **stack, unsigned int line_number);
+
+/* opcodes2.c */
+void opcode_nop(stack_t **stack, unsigned int line_number);
+void opcode_add(stack_t **stack, unsigned int line_number);
+void opcode_sub(stack_t **stack, unsigned int line_number);
+void opcode_div(stack_t **stack, unsigned int line_number);
+void opcode_mul(stack_t **stack, unsigned int line_number);
+
+/* opcodes3.c */
+void opcode_mod(stack_t **stack, unsigned int line_number);
+void opcode_pchar(stack_t **stack, unsigned int line_number);
+void opcode_pstr(stack_t **stack, unsigned int line_number);
+void opcode_rotl(stack_t **stack, unsigned int line_number);
+void opcode_rotr(stack_t **stack, unsigned int line_number);
+
+/* opcodes4.c */
+void opcode_stack(stack_t **stack, unsigned int line_number);
+void opcode_queue(stack_t **stack, unsigned int line_number);
+
 
 #endif
