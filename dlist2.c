@@ -1,4 +1,4 @@
-#include "lists.h"
+#include "monty.h"
 
 /**
  * add_dnodeint - Adds new node at beginning of linked list
